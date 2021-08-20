@@ -47,7 +47,7 @@ while session==1:
                     
             else:
                 print("Sorry NO branches in",country)
-                
+            print("========================================================")  
     elif choice==2:
         #options about the data display acc to country
         print("Which county records you want to display?")
@@ -65,6 +65,7 @@ while session==1:
                 print()
                 count=count+1
             print("|T|",count,"|")
+            print("========================================================")
         elif ch==2:
             cursor.execute('select * from IN_db')
             print("|H|Customer_Records|")
@@ -76,14 +77,16 @@ while session==1:
                 print()
                 count=count+1
             print("|T|",count,"|")
-                
+            print("========================================================")    
         else:
             print("Invalid input!")
+            print("========================================================")
                 
     else:
         print("We dont provide sevices in",country)
     session=int(input("Do you want to end the session?[0/1]"))
 #ending the session
+print("========================================================")
 
 
 """
