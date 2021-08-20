@@ -1,15 +1,19 @@
 import pyodbc #Importing module
-#ms_drivers=[x for x in pyodbc.drivers() if 'ACCESS' in x.upper()]
-#print(f'MS-Access Drivers:{ms_drivers}')
+"""ms_drivers=[x for x in pyodbc.drivers() if 'ACCESS' in x.upper()]
+print(f'MS-Access Drivers:{ms_drivers}')"""
+
 #setting the driver string
+
 drive='{Microsoft Access Driver (*.mdb, *.accdb)}'  
 #setting the path of the databse in ms access
-path=(r'C:\Users\azba\OneDrive\Desktop\Azba\Incubyte\incubyte\Records.accdb')
 
+path=(r'C:\Users\azba\OneDrive\Desktop\Azba\Incubyte\incubyte\Records.accdb')
 #connecting into the database
+
 connect= pyodbc.connect(driver=drive, DBQ=path , autocommit=True)
 cursor=connect.cursor()
 
+#specifying option about add display the data
 session=1
 while session==1:
     print("========================================================")
@@ -31,6 +35,7 @@ while session==1:
             dob=input("Enter the date of birth:")
             active=input("Enter whether the Customer is active or not:");
             val=(c_name,c_id,c_opendate,lastconsult,vax,doc,state,country,pin,dob,active)
+            #bifergating data according to the country it belongs
             if  country=="USA" or country=="usa":
                 cursor.execute("INSERT INTO USA_db VALUES (?,?,?,?,?,?,?,?,?,?,?)",val)
                 cursor.commit()
@@ -44,6 +49,7 @@ while session==1:
                 print("Sorry NO branches in",country)
                 
     elif choice==2:
+        #options about the data display acc to country
         print("Which county records you want to display?")
         print("1)USA")
         print("2)India")
@@ -67,7 +73,7 @@ while session==1:
     else:
         print("We dont provide sevices in",country)
     session=int(input("Do you want to end the session?[0/1]"))
-    
+#ending the session
 
 
 """
