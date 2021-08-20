@@ -87,12 +87,3 @@ while session==1:
     session=int(input("Do you want to end the session?[0/1]"))
 #ending the session
 print("========================================================")
-
-
-"""
-cursor.execute('select * from USA_db')
-for row in cursor.fetchall():
-    for x in row:
-        print(x,"\t |",end="")
-    print()
-"""
