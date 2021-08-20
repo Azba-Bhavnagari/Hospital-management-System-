@@ -57,19 +57,25 @@ while session==1:
         if ch==1:
             cursor.execute('select * from USA_db')
             print("|H|Customer_Records|")
-            
+            count=0
             for row in cursor.fetchall():
                 print("|D|",end="")
                 for x in row:
                     print(x,"\t|",end="")
                 print()
+                count=count+1
+            print("|T|",count,"|")
         elif ch==2:
             cursor.execute('select * from IN_db')
+            print("|H|Customer_Records|")
+            count=0
             for row in cursor.fetchall():
                 print("|D|",end="")
                 for x in row:
                     print(x,"\t|",end="")
                 print()
+                count=count+1
+            print("|T|",count,"|")
                 
         else:
             print("Invalid input!")
