@@ -56,13 +56,17 @@ while session==1:
         ch=int(input())
         if ch==1:
             cursor.execute('select * from USA_db')
+            print("|H|Customer_Records|")
+            
             for row in cursor.fetchall():
+                print("|D|",end="")
                 for x in row:
                     print(x,"\t|",end="")
                 print()
         elif ch==2:
             cursor.execute('select * from IN_db')
             for row in cursor.fetchall():
+                print("|D|",end="")
                 for x in row:
                     print(x,"\t|",end="")
                 print()
