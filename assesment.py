@@ -4,7 +4,7 @@ import pyodbc as pyodbc  #Importing module
 #setting the driver string
 drive='{Microsoft Access Driver (*.mdb, *.accdb)}'  
 #setting the path of the databse in ms access
-path=(r'C:\Users\azba\OneDrive\Desktop\Azba\Incubyte\Records.accdb')
+path=(r'C:\Users\azba\OneDrive\Desktop\Azba\Incubyte\incubyte\Records.accdb')
 
 #connecting into the database
 connect= pyodbc.connect(driver=drive, DBQ=path , autocommit=True)
