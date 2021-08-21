@@ -23,10 +23,68 @@ pas=getpass.getpass("\tEnter yout password:")
 if name=="Admin" and pas=="reveal":
     while session==1:
         print("\tWhat Operations would you like to perform?\t\t\n")
-        print("\t1)Add record\n\t2)Edit records\n\t3)Display records")
+        print("\t1)Fetch Records\n\t2)Add record\n\t3)Edit records\n\t4)Display Country Wise Records")
         choice=int(input("\n\tEnter your choice:"))
         print("\t========================================================")
         if choice==1:
+            name=input("\tEnter the customer name you wish to search:")
+            id=input("\tEnter customer id:")
+            con=input("\tEnter the country costomer belong to:")
+            if con=="in" or con=="IN":
+                cursor.execute("SELECT * FROM IN_db WHERE customer_name=? AND customer_id=?",name,id)
+                print("\t========================================================") 
+                print("\t|H|Customer_Records|Country-INDIA|")
+                count=0
+                for row in cursor.fetchall():
+                    print("\t|D|",end="")
+                    for x in row:
+                        print(x,"\t|",end="")
+                    print()
+                    count=count+1
+                print("\t|T|",count,"|")
+                print("\t========================================================")
+            elif con=="usa" or "USA":
+                cursor.execute("SELECT * FROM USA_db WHERE customer_name=? AND customer_id=?",name,id)
+                print("\t========================================================") 
+                print("\t|H|Customer_Records|Country-USA|")
+                count=0
+                for row in cursor.fetchall():
+                    print("\t|D|",end="")
+                    for x in row:
+                        print(x,"\t|",end="")
+                    print()
+                    count=count+1
+                print("\t|T|",count,"|")
+                print("\t========================================================")
+            elif con=="ger" or "GER":
+                cursor.execute("SELECT * FROM GER_db WHERE customer_name=? AND customer_id=?",name,id)
+                print("\t========================================================") 
+                print("\t|H|Customer_Records|Country-Germany|")
+                count=0
+                for row in cursor.fetchall():
+                    print("\t|D|",end="")
+                    for x in row:
+                        print(x,"\t|",end="")
+                    print()
+                    count=count+1
+                print("\t|T|",count,"|")
+                print("\t========================================================")
+            elif con=="UK" or "uk":
+                cursor.execute("SELECT * FROM UK_db WHERE customer_name=? AND customer_id=?",name,id)
+                print("\t========================================================") 
+                print("\t|H|Customer_Records|Country-UK|")
+                count=0
+                for row in cursor.fetchall():
+                    print("\t|D|",end="")
+                    for x in row:
+                        print(x,"\t|",end="")
+                    print()
+                    count=count+1
+                print("\t|T|",count,"|")
+                print("\t========================================================")
+            else:
+                print("\tThere is no customer with name ",name," and id",id,"in ",con)    
+        elif choice==2:
                 #getting the input for the tables
                 c_name=input("\tEnter the name of the customer:")
                 #c_id=input("Enter the customer id:")
@@ -61,11 +119,30 @@ if name=="Admin" and pas=="reveal":
                     cursor.execute("INSERT INTO IN_db VALUES (?,?,?,?,?,?,?,?,?,?,?)",val)
                     cursor.commit()
                     print("\t\tRecord inserted succesfully!")
-                        
+                elif country=="uk" or country=="UK":
+                    cursor.execute("select * from UK_db")
+                    id=0
+                    for row in cursor.fetchall():
+                        id=id+1
+                    c_id=id+1
+                    val=(c_name,c_id,c_opendate,lastconsult,vax,doc,state,country,pin,dob,active)
+                    cursor.execute("INSERT INTO UK_db VALUES (?,?,?,?,?,?,?,?,?,?,?)",val)
+                    cursor.commit()
+                    print("\t\tRecord inserted succesfully!")  
+                elif country=="ger" or country=="GER":
+                    cursor.execute("select * from GER_db")
+                    id=0
+                    for row in cursor.fetchall():
+                        id=id+1
+                    c_id=id+1
+                    val=(c_name,c_id,c_opendate,lastconsult,vax,doc,state,country,pin,dob,active)
+                    cursor.execute("INSERT INTO GER_db VALUES (?,?,?,?,?,?,?,?,?,?,?)",val)
+                    cursor.commit()
+                    print("\t\tRecord inserted succesfully!")   
                 else:
                     print("\t\tSorry NO branches in",country)
                 print("\t========================================================") 
-        elif choice==2:
+        elif choice==3:
             name=input("\tEnter the name of the customer you wish to update the record of:")
             id=input("\tEnter the customer's ID:")
             cou=input("\tEnter the country of the customer:")
@@ -81,16 +158,28 @@ if name=="Admin" and pas=="reveal":
                 cursor.execute("UPDATE USA_db SET doctor_consulted= ? WHERE customer_name=? AND customer_id=?",doc,name,id)
                 cursor.commit()
                 print("\t\tRecord updated!")
-        elif choice==3:
+            elif cou=="UK" or cou=="uk":
+                cursor.execute("UPDATE UK_db SET last_consulted_date=? WHERE customer_name=? AND customer_id=?",date,name,id)
+                cursor.execute("UPDATE UK_db SET doctor_consulted= ? WHERE customer_name=? AND customer_id=?",doc,name,id)
+                cursor.commit()
+                print("\t\tRecord updated!")
+            elif cou=="GER" or cou=="ger":
+                cursor.execute("UPDATE GER_db SET last_consulted_date=? WHERE customer_name=? AND customer_id=?",date,name,id)
+                cursor.execute("UPDATE GER_db SET doctor_consulted= ? WHERE customer_name=? AND customer_id=?",doc,name,id)
+                cursor.commit()
+                print("\t\tRecord updated!")    
+        elif choice==4:
             #options about the data display acc to country
             print("\tSelect the country you wish to see the data of?\n")
             print("\t1)USA")
             print("\t2)India")
+            print("\t3)UK")
+            print("\t4)Germany")    
             ch=int(input("\n\tEnter your choice:"))
             if ch==1:
                 cursor.execute('select * from USA_db')
                 print("\t========================================================") 
-                print("\t|H|Customer_Records|")
+                print("\t|H|Customer_Records|Country-USA")
                 count=0
                 for row in cursor.fetchall():
                     print("\t|D|",end="")
@@ -103,7 +192,7 @@ if name=="Admin" and pas=="reveal":
             elif ch==2:
                 cursor.execute('select * from IN_db')
                 print("\t========================================================") 
-                print("\t|H|Customer_Records|")
+                print("\t|H|Customer_Records|Country-INDIA")
                 count=0
                 for row in cursor.fetchall():
                     print("\t|D|",end="")
@@ -112,19 +201,45 @@ if name=="Admin" and pas=="reveal":
                     print()
                     count=count+1
                 print("\t|T|",count,"|")
-                print("\t========================================================")    
+                print("\t========================================================")
+            elif ch==3:
+                cursor.execute('select * from UK_db')
+                print("\t========================================================") 
+                print("\t|H|Customer_Records|Country-UK")
+                count=0
+                for row in cursor.fetchall():
+                    print("\t|D|",end="")
+                    for x in row:
+                        print(x,"\t|",end="")
+                    print()
+                    count=count+1
+                print("\t|T|",count,"|")
+                print("\t========================================================") 
+            elif ch==4:
+                cursor.execute('select * from GER_db')
+                print("\t========================================================") 
+                print("\t|H|Customer_Records|Country-GERMANY")
+                count=0
+                for row in cursor.fetchall():
+                    print("\t|D|",end="")
+                    for x in row:
+                        print(x,"\t|",end="")
+                    print()
+                    count=count+1
+                print("\t|T|",count,"|")
+                print("\t========================================================")     
             else:
                 print("\tInvalid input!")
-                print("========================================================")
-                    
+                print("========================================================")            
         else:
             print("\tWe dont provide sevices in",country)
         session=int(input("\n\tDo you want to end the session?[0/1]"))
     #ending the session
     print("\t========================================================")
-    print("\t---------------------Session over----------------------")
+    print("\t----------------------Session over----------------------")
 else:
     print("\tIncorrect username or password!")
-    print("\t---------------------Session Aborted----------------------")
+    print("\t--------------------Session Aborted---------------------")
+    print("\t========================================================") 
     exit()
 
