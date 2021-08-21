@@ -15,21 +15,25 @@ connect= pyodbc.connect(driver=drive, DBQ=path , autocommit=True)
 cursor=connect.cursor()
 
 #specifying option about add display the data
-print("\t========================================================")
-print("\t\t\t WELCOME TO THE HOSPITAL DATABASE!\n")
+print("\t=======================================================================================")
+print("\t\t\t\t\t HOSPITAL DATABASE!")
+print("\t=======================================================================================\n")
 session=1
 
 #checking for the authorised user
 name=input("\tEnter username:")
 pas=getpass.getpass("\tEnter yout password:")
 if name=="Admin" and pas=="reveal":
-    print("\t========================================================")
+    print("\t=======================================================================================")
+    print("\t\t\t\t WELCOME TO THE HOSPITAL DATABASE",name,"!")
+    print("\t=======================================================================================\n")
     while session==1:
         #checking for the operations the user wants to perform
+        print("\t=======================================================================================\n")
         print("\tWhat Operations would you like to perform?\t\t\n")
-        print("\t1)Fetch Records\n\t2)Add record\n\t3)Edit records\n\t4)Display Country Wise Records")
+        print("\t1)Fetch Records\n\t2)Add record\n\t3)Edit records\n\t4)Display Country Wise Records\n\t5)Log out")
         choice=int(input("\n\tEnter your choice:"))
-        print("\t========================================================")
+        print("\t=======================================================================================")
         if choice==1:    #for fetching the single customer record
             name=input("\tEnter the customer name you wish to search:")
             id=input("\tEnter customer id:")
@@ -145,7 +149,7 @@ if name=="Admin" and pas=="reveal":
                     print("\t\tRecord inserted succesfully!")   
                 else:
                     print("\t\tSorry NO branches in",country)
-                print("\t========================================================") 
+                print("\t=======================================================================================")
         elif choice==3:  #updating the database 
             name=input("\tEnter the name of the customer you wish to update the record of:")
             id=input("\tEnter the customer's ID:")
@@ -181,7 +185,7 @@ if name=="Admin" and pas=="reveal":
             ch=int(input("\n\tEnter your choice:"))
             if ch==1:
                 cursor.execute('select * from USA_db')
-                print("\t========================================================") 
+                print("\t=======================================================================================")
                 print("\t|H|Customer_Records|Country-USA|")
                 count=0
                 for row in cursor.fetchall():
@@ -191,10 +195,10 @@ if name=="Admin" and pas=="reveal":
                     print()
                     count=count+1
                 print("\t|T|",count,"|")
-                print("\t========================================================")
+                print("\t=======================================================================================")
             elif ch==2:
                 cursor.execute('select * from IN_db')
-                print("\t========================================================") 
+                print("\t=======================================================================================")
                 print("\t|H|Customer_Records|Country-INDIA|")
                 count=0
                 for row in cursor.fetchall():
@@ -204,10 +208,10 @@ if name=="Admin" and pas=="reveal":
                     print()
                     count=count+1
                 print("\t|T|",count,"|")
-                print("\t========================================================")
+                print("\t=======================================================================================")
             elif ch==3:
                 cursor.execute('select * from UK_db')
-                print("\t========================================================") 
+                print("\t=======================================================================================")
                 print("\t|H|Customer_Records|Country-UK|")
                 count=0
                 for row in cursor.fetchall():
@@ -217,10 +221,10 @@ if name=="Admin" and pas=="reveal":
                     print()
                     count=count+1
                 print("\t|T|",count,"|")
-                print("\t========================================================") 
+                print("\t=======================================================================================")
             elif ch==4:
                 cursor.execute('select * from CAN_db')
-                print("\t========================================================") 
+                print("\t=======================================================================================")
                 print("\t|H|Customer_Records|Country-Canada|")
                 count=0
                 for row in cursor.fetchall():
@@ -230,20 +234,31 @@ if name=="Admin" and pas=="reveal":
                     print()
                     count=count+1
                 print("\t|T|",count,"|")
-                print("\t========================================================")     
+                print("\t=======================================================================================")
             else:
                 print("\tInvalid input!")
-                print("========================================================")            
+                print("\t=======================================================================================")
+        elif choice==5:
+            ask=input("\n\tAre you sure you want to log out?")
+            if ask=="Y" or ask=="y":
+                print("\tLogged out!")
+                print("\t--------------------------------Session Ended------------------------------------------")
+                print("\t=======================================================================================")
+                exit()
+            else:
+                print()
+                continue
         else:
-            print("\tWe dont provide sevices in",country)
+            print("\tInvalid input!")
+            print("\t=======================================================================================")
         #if the user wants to end the session 
         session=int(input("\n\tDo you want to end the session?[0/1]"))
     #ending the session
-    print("\t========================================================")
-    print("\t----------------------Session over----------------------")
+    print("\t=======================================================================================")
+    print("\t------------------------------Session Terminated---------------------------------------")
 else: #terminating the session as the password of user name entered is wrong
     print("\tIncorrect username or password!")
-    print("\t--------------------Session Aborted---------------------")
-    print("\t========================================================") 
+    print("\t------------------------------Session Aborted------------------------------------------")
+    print("\t=======================================================================================")
     exit()
 
