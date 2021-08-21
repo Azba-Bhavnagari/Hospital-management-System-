@@ -25,6 +25,7 @@ name=input("\tEnter username:")
 pas=getpass.getpass("\tEnter yout password:")
 if name=="Admin" and pas=="reveal":
     print("\t=======================================================================================")
+    name=name.upper()
     print("\t\t\t\t WELCOME TO THE HOSPITAL DATABASE",name,"!")
     print("\t=======================================================================================\n")
     while session==1:
@@ -96,15 +97,15 @@ if name=="Admin" and pas=="reveal":
                 #getting the input for the tables
                 c_name=input("\tEnter the name of the customer:")
                 #c_id=input("Enter the customer id:")
-                c_opendate=input("\tEnter the Customer open date:")
-                lastconsult=input("\tEnter the Last consult date:")
+                c_opendate=input("\tEnter the Customer open date:[yyyy-mm-dd]")
+                lastconsult=input("\tEnter the Last consult date:[yyyy-mm-dd]")
                 vax=input("\tEnter the Customer vaccine:")
                 doc=input("\tEnter the doctor cunsulted:")
                 state=input("\tEnter the Customer State:")
                 country=input("\tEnter the Customer Country:")
                 pin=input("\tEnter the pincode:")
-                dob=input("\tEnter the date of birth:")
-                active=input("\tEnter whether the Customer is active or not:");
+                dob=input("\tEnter the date of birth:[yyyy-mm-dd]")
+                active=input("\tEnter whether the Customer is active or not:[y,n]")
                 #val=(c_name,c_id,c_opendate,lastconsult,vax,doc,state,country,pin,dob,active)
                 #bifergating data according to the country it belongs
                 if  country=="USA" or country=="usa":
@@ -154,7 +155,7 @@ if name=="Admin" and pas=="reveal":
             name=input("\tEnter the name of the customer you wish to update the record of:")
             id=input("\tEnter the customer's ID:")
             cou=input("\tEnter the country of the customer:")
-            date=input("\tEnter the last consulted date of the customer:")
+            date=input("\tEnter the last consulted date of the customer:[yyyy-mm-dd]")
             doc=input("\tEnter the last consulted Doctor:")
             if cou=="in" or cou=="IN":
                 cursor.execute("UPDATE IN_db SET last_consulted_date=? WHERE customer_name=? AND customer_id=?",date,name,id)
