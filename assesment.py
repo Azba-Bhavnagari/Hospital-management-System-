@@ -18,15 +18,19 @@ cursor=connect.cursor()
 print("\t========================================================")
 print("\t\t\t WELCOME TO THE HOSPITAL DATABASE!\n")
 session=1
+
+#checking for the authorised user
 name=input("\tEnter username:")
 pas=getpass.getpass("\tEnter yout password:")
 if name=="Admin" and pas=="reveal":
+    print("\t========================================================")
     while session==1:
+        #checking for the operations the user wants to perform
         print("\tWhat Operations would you like to perform?\t\t\n")
         print("\t1)Fetch Records\n\t2)Add record\n\t3)Edit records\n\t4)Display Country Wise Records")
         choice=int(input("\n\tEnter your choice:"))
         print("\t========================================================")
-        if choice==1:
+        if choice==1:    #for fetching the single customer record
             name=input("\tEnter the customer name you wish to search:")
             id=input("\tEnter customer id:")
             con=input("\tEnter the country costomer belong to:")
@@ -56,10 +60,10 @@ if name=="Admin" and pas=="reveal":
                     count=count+1
                 print("\t|T|",count,"|")
                 print("\t========================================================")
-            elif con=="ger" or "GER":
-                cursor.execute("SELECT * FROM GER_db WHERE customer_name=? AND customer_id=?",name,id)
+            elif con=="CAN" or "can":
+                cursor.execute("SELECT * FROM CAN_db WHERE customer_name=? AND customer_id=?",name,id)
                 print("\t========================================================") 
-                print("\t|H|Customer_Records|Country-Germany|")
+                print("\t|H|Customer_Records|Country-Canada|")
                 count=0
                 for row in cursor.fetchall():
                     print("\t|D|",end="")
@@ -84,7 +88,7 @@ if name=="Admin" and pas=="reveal":
                 print("\t========================================================")
             else:
                 print("\tThere is no customer with name ",name," and id",id,"in ",con)    
-        elif choice==2:
+        elif choice==2:  #for introducing new costomer to the family
                 #getting the input for the tables
                 c_name=input("\tEnter the name of the customer:")
                 #c_id=input("Enter the customer id:")
@@ -129,8 +133,8 @@ if name=="Admin" and pas=="reveal":
                     cursor.execute("INSERT INTO UK_db VALUES (?,?,?,?,?,?,?,?,?,?,?)",val)
                     cursor.commit()
                     print("\t\tRecord inserted succesfully!")  
-                elif country=="ger" or country=="GER":
-                    cursor.execute("select * from GER_db")
+                elif country=="can" or country=="CAN":
+                    cursor.execute("select * from CAn_db")
                     id=0
                     for row in cursor.fetchall():
                         id=id+1
@@ -142,7 +146,7 @@ if name=="Admin" and pas=="reveal":
                 else:
                     print("\t\tSorry NO branches in",country)
                 print("\t========================================================") 
-        elif choice==3:
+        elif choice==3:  #updating the database 
             name=input("\tEnter the name of the customer you wish to update the record of:")
             id=input("\tEnter the customer's ID:")
             cou=input("\tEnter the country of the customer:")
@@ -163,23 +167,22 @@ if name=="Admin" and pas=="reveal":
                 cursor.execute("UPDATE UK_db SET doctor_consulted= ? WHERE customer_name=? AND customer_id=?",doc,name,id)
                 cursor.commit()
                 print("\t\tRecord updated!")
-            elif cou=="GER" or cou=="ger":
-                cursor.execute("UPDATE GER_db SET last_consulted_date=? WHERE customer_name=? AND customer_id=?",date,name,id)
-                cursor.execute("UPDATE GER_db SET doctor_consulted= ? WHERE customer_name=? AND customer_id=?",doc,name,id)
+            elif cou=="can" or cou=="CAN":
+                cursor.execute("UPDATE CAN_db SET last_consulted_date=? WHERE customer_name=? AND customer_id=?",date,name,id)
+                cursor.execute("UPDATE CAN_db SET doctor_consulted= ? WHERE customer_name=? AND customer_id=?",doc,name,id)
                 cursor.commit()
                 print("\t\tRecord updated!")    
-        elif choice==4:
-            #options about the data display acc to country
+        elif choice==4:  #options about the data display acc to country
             print("\tSelect the country you wish to see the data of?\n")
             print("\t1)USA")
             print("\t2)India")
             print("\t3)UK")
-            print("\t4)Germany")    
+            print("\t4)Canada")    
             ch=int(input("\n\tEnter your choice:"))
             if ch==1:
                 cursor.execute('select * from USA_db')
                 print("\t========================================================") 
-                print("\t|H|Customer_Records|Country-USA")
+                print("\t|H|Customer_Records|Country-USA|")
                 count=0
                 for row in cursor.fetchall():
                     print("\t|D|",end="")
@@ -192,7 +195,7 @@ if name=="Admin" and pas=="reveal":
             elif ch==2:
                 cursor.execute('select * from IN_db')
                 print("\t========================================================") 
-                print("\t|H|Customer_Records|Country-INDIA")
+                print("\t|H|Customer_Records|Country-INDIA|")
                 count=0
                 for row in cursor.fetchall():
                     print("\t|D|",end="")
@@ -205,7 +208,7 @@ if name=="Admin" and pas=="reveal":
             elif ch==3:
                 cursor.execute('select * from UK_db')
                 print("\t========================================================") 
-                print("\t|H|Customer_Records|Country-UK")
+                print("\t|H|Customer_Records|Country-UK|")
                 count=0
                 for row in cursor.fetchall():
                     print("\t|D|",end="")
@@ -216,9 +219,9 @@ if name=="Admin" and pas=="reveal":
                 print("\t|T|",count,"|")
                 print("\t========================================================") 
             elif ch==4:
-                cursor.execute('select * from GER_db')
+                cursor.execute('select * from CAN_db')
                 print("\t========================================================") 
-                print("\t|H|Customer_Records|Country-GERMANY")
+                print("\t|H|Customer_Records|Country-Canada|")
                 count=0
                 for row in cursor.fetchall():
                     print("\t|D|",end="")
@@ -233,11 +236,12 @@ if name=="Admin" and pas=="reveal":
                 print("========================================================")            
         else:
             print("\tWe dont provide sevices in",country)
+        #if the user wants to end the session 
         session=int(input("\n\tDo you want to end the session?[0/1]"))
     #ending the session
     print("\t========================================================")
     print("\t----------------------Session over----------------------")
-else:
+else: #terminating the session as the password of user name entered is wrong
     print("\tIncorrect username or password!")
     print("\t--------------------Session Aborted---------------------")
     print("\t========================================================") 
