@@ -239,7 +239,7 @@ if name=="Admin" and pas=="reveal":
             else:
                 print("\tInvalid input!")
                 print("\t=======================================================================================")
-        elif choice==5:
+        elif choice==5:  #logging out 
             ask=input("\n\tAre you sure you want to log out?")
             if ask=="Y" or ask=="y":
                 print("\tLogged out!")
@@ -262,4 +262,3 @@ else: #terminating the session as the password of user name entered is wrong
     print("\t------------------------------Session Aborted------------------------------------------")
     print("\t=======================================================================================")
     exit()
-
